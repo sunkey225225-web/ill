@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   get "pages/home"
   resources :users, only: [:show]
 
@@ -10,11 +11,7 @@ Rails.application.routes.draw do
     resources :comments, only: [:create]
   end
 
-  
-end
 
-Rails.application.routes.draw do
+
   root "pages#home"
-  resources :tweets
-  devise_for :users
 end
