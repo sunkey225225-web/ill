@@ -1,0 +1,34 @@
+<div class="tweets-container">
+
+<%= link_to "新規投稿へ", new_tweet_path %>
+  <% @tweets.each do |t| %>
+
+
+    <div class="tweet">
+
+
+      <p><strong><%= t.user&.name || "名無しさん" %></strong></p>
+      <p><%= t.title %></p>
+      <p><%= t.limit %></p>
+      <p><%= t.about %></p>
+
+     <% if user_signed_in? %>
+      <% if current_user.already_liked?(t) %>
+          <%= button_to tweet_like_path(id: t.id, tweet_id: t.id), method: :delete do %>
+              <p>いいねを取り消す</p><%= t.likes.count %>
+          <% end %>
+      <% else %>
+          <%= button_to tweet_likes_path(id: t.id, tweet_id: t.id), method: :post do %>
+              <p>いいね</p><%= t.likes.count %>
+          <% end %>
+      <% end %>
+  <% else %>
+      <p>いいねの数 = </p><%= t.likes.count %>
+  <% end %>
+show.html.erb
+
+<%= link_to "詳細へ", tweet_path(t.id) %>
+
+    </div>
+  <% end %>
+</div>

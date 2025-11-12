@@ -1,0 +1,82 @@
+<!-- 上のリボンとキャッチ（任意で残す） -->
+<div class="ribbon"></div>
+<h1 class="headline">できた！が誰かの<span class="accent">“がんばろう”</span>へ</h1>
+<p class="subcopy">目標を宣言して、応援でつながる。あなたの一歩が、誰かの勇気になる。</p>
+
+
+<nav class="auth-links">
+  <%= link_to "新規登録", new_user_registration_path %>
+  <%= link_to "ログイン", new_user_session_path %>
+</nav>
+
+
+<div class="home-grid">
+  <!-- 1段目 -->
+  <%= link_to "#about", class: "tile tile--bubble" do %>
+    <h3>illとは？</h3>
+    <p>サイトの想いと使い方を知る</p>
+  <% end %>
+
+  <%= link_to new_tweet_path, class: "tile tile--sparkle" do %>
+    <h3>早速目標宣言！</h3>
+    <p>まずは一歩。あなたの目標を投稿しよう</p>
+  <% end %>
+
+  <!-- 2段目 -->
+  <%= link_to "#search", class: "tile tile--search" do %>
+    <h3>どんな目標があるのかな？目標検索</h3>
+    <p>キーワードで探す（例：TOEIC / 早起き / ランニング）</p>
+  <% end %>
+
+  <%= link_to tweets_path, class: "tile tile--party" do %>
+    <h3>みんなの成功体験</h3>
+    <p>達成のコツや工夫をチェック</p>
+  <% end %>
+
+  <!-- 3段目 -->
+  <%= link_to tweets_path(order: :latest), class: "tile tile--trophy" do %>
+    <h3>注目目標</h3>
+    <p>いま話題の目標をピックアップ</p>
+  <% end %>
+
+  <%= link_to tweets_path, class: "tile tile--heart" do %>
+    <h3>みんなの目標を応援しよう！</h3>
+    <p>気になった目標にハートで応援</p>
+  <% end %>
+</div>
+
+<!-- アンカー先（簡易セクション） -->
+<a id="about"></a>
+<div class="cards">
+  <div class="card">
+    <h3>illとは？</h3>
+    <p>「目標を宣言し、応援でつながる」コミュニティです。ベージュ×ゴールド×朱赤のやさしい世界観で、日々の一歩を応援します。</p>
+  </div>
+</div>
+
+<a id="search"></a>
+<div class="cards">
+  <div class="card">
+    <h3>目標検索</h3>
+    <%= form_with url: root_path, method: :get, local: true do %>
+      <input type="text" name="q" placeholder="例：TOEIC / 早起き / ランニング"
+             style="width:100%;padding:8px;border:1px solid #E6D5A3;border-radius:6px;">
+      <div style="margin-top:8px;">
+        <button class="btn" type="submit">検索する</button>
+      </div>
+    <% end %>
+    <% if params[:q].present? %>
+      <p class="meta" style="margin-top:12px;">「<%= params[:q] %>」の検索結果</p>
+      <div class="grid">
+        <% (@results || []).each do |t| %>
+          <div class="card">
+            <h3><%= t.title %></h3>
+            <div class="meta">期限: <%= t.limit %></div>
+            <p><%= truncate(t.about.to_s, length: 90) %></p>
+            <%= link_to "詳細へ", tweet_path(t), class: "btn" %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

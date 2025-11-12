@@ -1,0 +1,9 @@
+<% klass = "card" %>
+<% klass += " heart-card" if local_assigns[:heart] %>
+
+<%= link_to tweet_path(tweet), class: klass, 'aria-label': "詳細: #{tweet.title}" do %>
+  <h3><%= tweet.title %></h3>
+  <div class="meta">期限: <%= tweet.limit %></div>
+  <p><%= truncate(tweet.about.to_s, length: 90) %></p>
+  <span class="more">詳細を見る →</span>
+<% end %>

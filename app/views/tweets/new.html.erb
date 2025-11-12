@@ -1,0 +1,27 @@
+<h1>自分の題名</h1>
+<h3>新規投稿ページ</h3>
+
+<div class="card">
+  <%= form_for @tweet do |f| %>
+
+    <div class="field">
+      <%= f.label :title, "タイトル" %><br>
+      <%= f.text_field :title, size: 30 %>
+    </div>
+
+    <div class="field">
+      <%= f.label :limit, "目標期限" %><br>
+      <%= f.text_field :limit, size: 30 %>
+    </div>
+
+    <div class="field">
+      <%= f.label :about, "目標内容" %><br>
+      <%= f.text_area :about, rows: 4, cols: 30 %>
+    </div>
+
+    <%= f.submit "投稿する", class: "btn" %>
+
+  <% end %>
+
+  <%= link_to "一覧に戻る", tweets_path, class: "btn" %>
+</div>
